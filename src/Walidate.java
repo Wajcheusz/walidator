@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  * Created by E6420 on 2017-03-19.
  */
@@ -43,5 +48,19 @@ public class Walidate {
         int lastIndex = sb.indexOf("*/");
         sb.delete(firstIndex, lastIndex+2);
         return removeBlockComment(sb.toString());
+//        tekst = tekst.replaceAll("(?s)/*.*?*/")
+    }
+
+    public static String readFile() throws IOException {
+        String line;
+        FileReader fileReader = new FileReader("test.less");
+        BufferedReader br = new BufferedReader(fileReader);
+
+        while ((line = br.readLine()) != null){
+            line = line.concat("\n");
+        }
+        br.close();
+
+        return line;
     }
 }
