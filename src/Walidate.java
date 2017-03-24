@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -19,13 +18,19 @@ public class Walidate {
             "\n" +
             "@var: white;\uFEFF";
 
-    public static void main(String[] args) {
-        String tekst=TEKST;
-        System.out.println(tekst);
-        System.out.println("\n---------------------------------------------\n");
-        tekst = removeOneComment(tekst);
-        tekst = removeBlockComment(tekst);
-        System.out.println(tekst);
+    public static void main(String[] args) throws IOException {
+        //String tekst=TEKST;
+        String tekst = readFile();
+        Analyze a = new Analyze(tekst);
+
+//        a.setTekst(removeOneComment(a.getTekst()));
+//        a.setTekst(removeBlockComment((a.getTekst())));
+        //tekst = removeBlockComment(tekst);
+        a.parse();
+//        System.out.println(tekst);
+//        System.out.println("\n---------------------------------------------\n");
+
+        //System.out.println(tekst);
     }
 
     public static String removeOneComment(String tekst) {
@@ -52,15 +57,16 @@ public class Walidate {
     }
 
     public static String readFile() throws IOException {
-        String line;
+        StringBuilder sb = new StringBuilder();
+        String oneLine;
         FileReader fileReader = new FileReader("test.less");
         BufferedReader br = new BufferedReader(fileReader);
 
-        while ((line = br.readLine()) != null){
-            line = line.concat("\n");
+        while ((oneLine = br.readLine()) != null){
+            sb.append(oneLine).append("\n");
         }
         br.close();
 
-        return line;
+        return sb.toString();
     }
 }
