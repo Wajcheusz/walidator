@@ -72,24 +72,24 @@ public class Analyze {
             takeLeksem(MALPA);
             znaki();
 //            if (biezacyToken == COL) {
-                takeLeksem(COL);
-                znaki();
+            takeLeksem(COL);
+            znaki();
 //                if (biezacyToken == SEMICOL) {
-                    takeLeksem(SEMICOL);
+            takeLeksem(SEMICOL);
 //                } //else wrong(biezacyToken, lineNumber);
 //            } //else wrong(biezacyToken, lineNumber);
         } else if (biezacyToken == POINT) {
-//            takeLeksem(POINT);
+            takeLeksem(POINT);
             znaki();
 //            if (biezacyToken==LBRAC){
-                takeLeksem(LBRAC);
-                funkcja();
+            takeLeksem(LBRAC);
+            funkcja();
 //                if(biezacyToken==SEMICOL){
-                    takeLeksem(SEMICOL);
-                    funkcje();
+            //takeLeksem(SEMICOL);
+            funkcje();
 //                    if(biezacyToken==RBRAC){
-                        takeLeksem(RBRAC);
-                        koniec();
+            takeLeksem(RBRAC);
+            koniec();
 //                    }
 //                }
 //            }
@@ -101,41 +101,44 @@ public class Analyze {
         }
     }
 
-    private void funkcja(){
+    private void funkcja() {
         znaki();
 //        if(biezacyToken==COL){
         takeLeksem(COL);
-            znaki();
+        znaki();
 //            if(biezacyToken==LNAWIAS){
-                takeLeksem(LNAWIAS);
-                args();
+        takeLeksem(LNAWIAS);
+        args();
 //                if(biezacyToken==SEMICOL){
-                    takeLeksem(SEMICOL);
+        takeLeksem(RNAWIAS);
+        takeLeksem(SEMICOL);
 //                }
 //            }
 //        }
     }
 
-    private void args(){
+    private void args() {
         znaki();
-        if(biezacyToken==COL){
-        takeLeksem(COM);
-        args();
+        if (biezacyToken == COM) {
+            takeLeksem(COM);
+            args();
         }
-        if(biezacyToken==COL){
+        if (biezacyToken == COL) {
             funkcje();
         }
         //args();
     }
 
-    private void funkcje(){
-        funkcja();
-        takeLeksem(SEMICOL);
-        funkcje();
+    private void funkcje() {
+        if (biezacyToken != RBRAC) {
+            funkcja();
+            takeLeksem(SEMICOL);
+            funkcje();
+        }
         //lub eps
     }
 
-   // private void arg()
+    // private void arg()
 
     private void wyrazenia() {
         if (biezacyToken != EPS) {
